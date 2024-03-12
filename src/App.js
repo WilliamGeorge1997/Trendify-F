@@ -1,24 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
-
+// import { Fragment } from "react";
+import "./App.css";
+import LayOut from "./components/LayOut/LayOut.jsx";
+import {
+  // BrowserRouter, Routes, Route,
+  createBrowserRouter, RouterProvider
+} from "react-router-dom";
+import Categories from './components/Categories/Categories';
+import Details from './components/Details/Details';
+import Home from './components/Home/Home';
+import Login from './components/Login/Login';
+import Register from './components/Register/Register';
+import Sell from './components/Sell/Sell';
+import ErrorPage from './components/ErrorPage/ErrorPage';
+import Notification from './components/Notification/Notification';
+import ProductItem from './components/ProductItem/ProductItem';
+import { Fragment } from 'react';
+import CategoryProductItem from "./components/CategoryProductItem/CategoryProductItem.jsx";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+let routes = createBrowserRouter([
+  {
+    path: "",
+    element: <LayOut />,
+    children: [
+      { path: "Categories", element: <Categories /> },
+      { path: "Details", element: <Details /> },
+      { path: "Home", element: <Home /> },
+      { path: "Login", element: <Login /> },
+      { path: "Register", element: <Register /> },
+      { path: "Notification", element: <Notification /> },
+      { path: "*", element: <ErrorPage /> },
+    ],
+  },
+  { path: "sell", element: <Sell /> },
+]);
+
+  return (<Fragment>
+    <RouterProvider router={routes}></RouterProvider>
+    <CategoryProductItem/>
+  </Fragment>
+    
   );
 }
 
